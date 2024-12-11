@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERB AI</title>
+</head>
+<body>
+    <h1>VERB AI</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="story" rows="5" cols="60" placeholder="Enter your story here..."></textarea><br>
+        <button type="submit">Analyze</button>
+    </form>
+    
+    {% if moral and rating %}
+        <p><strong>Moral of the Story:</strong> {{ moral }}</p>
+        <p><strong>Rating:</strong> {{ rating }}</p>
+    {% endif %}
+</body>
+</html>
