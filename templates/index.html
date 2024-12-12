@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StorySense AI - Child-Friendly Narrative Evaluation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #FFF0F5, #F8F0FF);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #000;
+        }
+        nav a {
+            text-decoration: none;
+            color: #666;
+        }
+        main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 0;
+        }
+        .content {
+            max-width: 80%;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .highlight {
+            color: #FF1493;
+        }
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .start-btn {
+            background: linear-gradient(to right, #FF1493, #FF4500);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+        .text-input {
+            width: 100%;
+            height: 200px;
+            border: 2px solid #DDA0DD;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1em;
+            resize: vertical;
+            overflow-y: scroll;
+            background: #FFF8FF;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .text-input:focus {
+            outline: none;
+            border-color: #FF1493;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        }
+        .text-input::-webkit-scrollbar {
+            width: 8px;
+        }
+        .text-input::-webkit-scrollbar-track {
+            background: #F0F0F5;
+            border-radius: 10px;
+        }
+        .text-input::-webkit-scrollbar-thumb {
+            background: #DDA0DD;
+            border-radius: 10px;
+            border: 2px solid #FFF8FF;
+        }
+        .text-input::-webkit-scrollbar-thumb:hover {
+            background: #FF1493;
+        }
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+            .content, .text-input {
+                max-width: 100%;
+                width: 100%;
+            }
+            .text-input {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                {% load static %}
+                <img src="{% static 'img/logo.png' %}" alt="LOGO" id="logo" style="width: 50px; height: 50px;"/>
+            </a>
+            <nav>
+                <a href="#">Home</a>
+            </nav>
+        </header>
+        <main>
+            <div class="content">
+                <h1><span class="highlight">StorySense AI</span><br>Child-Friendly Narrative Evaluation</h1>
+                <p>Focuses on assessing a child's experiences and progress in a way that is engaging and understandable for them.</p>
+                <form method="POST"  action="{% url 'analyze_story' %}">
+                    {% csrf_token %}
+                    <textarea style="resize: none;" name="story" class="text-input" placeholder="Enter your story here..."></textarea><br>
+                    <button type="submit" class="start-btn">Analyze</button>
+                </form>
+            </div>
+        </main>
+        {% if moral and rating %}
+            <div class="container">
+                <p><strong>Moral of the Story:</strong> {{ moral }}</p>
+                <p><strong>Rating:</strong> {{ rating }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
